@@ -1,8 +1,18 @@
+---
+import { Image } from "astro:assets";
+import DecayedBars from "../images/decayed_bars.png";
+---
+
 <footer
   class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4"
 >
   <aside class="grid-flow-col items-center">
-    <!-- iamge here -->
+    <Image
+      id="footer-logo"
+      src={DecayedBars}
+      alt="logo"
+      class="max-h-8 max-w-8 rounded-xl"
+    />
     <p>
       Copyright &copy; {new Date().getFullYear()} - All right reserved Glenn Freeman
     </p>
@@ -52,3 +62,8 @@
     </a>
   </nav>
 </footer>
+<style>
+  #footer-logo {
+    corner-shape: squirqle;
+  }
+</style>

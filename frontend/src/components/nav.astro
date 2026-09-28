@@ -1,10 +1,44 @@
+---
+import { Image } from "astro:assets";
+import DapperNib from "../images/dapper_nib.png";
+---
+
 <header>
-  <nav class="navbar bg-base-100 shadow-sm">
-    <div class="flex-1">
-      <a class="btn btn-ghost text-xl">Glenn Freeman</a>
+  <nav class="navbar bg-base-200">
+    <div class="mr-4">
+      <a href="index.html">
+        <Image
+          id="nav-logo"
+          src={DapperNib}
+          alt="Logo"
+          class="max-h-16 max-w-16 rounded-4xl"
+        />
+      </a>
     </div>
-    <div class="flex-none">
-      <button class="btn btn-square btn-ghost">Drop Down</button>
+    <div class="ps-4">
+      <a href="index.html" class="text-lg font-bold">Glenn Freeman</a>
+    </div>
+    <div class="flex grow justify-end px-2">
+      <div class="flex items-stretch">
+        <a class="btn btn-ghost rounded-field">Button</a>
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button" class="btn btn-ghost rounded-field">
+            Dropdown
+          </div>
+          <ul
+            tabindex="-1"
+            class="menu dropdown-content bg-base-200 rounded-box z-1 mt-4 w-52 p-2 shadow-sm"
+          >
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </nav>
 </header>
+<style>
+  #nav-logo {
+    corner-shape: squircle;
+  }
+</style>
