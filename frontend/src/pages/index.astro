@@ -3,10 +3,103 @@ import BaseLayout from "../layouts/base_layout.astro";
 ---
 
 <BaseLayout>
-  <h1>Hello World!</h1>
-  <p>
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error aut, facere
-    earum eum, cum hic omnis sapiente in ab excepturi velit, ratione delectus!
-    Harum enim inventore ipsam fugiat, delectus ex.
-  </p>
+  <hgroup class="text-center mb-8">
+    <h1 class="text-8xl font-black">Madlib Generator</h1>
+    <h2 class="text-3xl">When the juice runs dry and you gotta hit the eye.</h2>
+  </hgroup>
+  <form
+    class="flex justify-center m-auto py-20 border-2 border-accent rounded-4xl"
+  >
+    <fieldset
+      class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+    >
+      <legend class="fieldset-legend">Adjectives</legend>
+      <div class="join">
+        <input
+          type="text"
+          class="input join-item"
+          placeholder="Enter Adjective"
+        />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input
+          type="text"
+          class="input join-item"
+          placeholder="Enter Adjective"
+        />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input
+          type="text"
+          class="input join-item"
+          placeholder="Enter Adjective"
+        />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input
+          type="text"
+          class="input join-item"
+          placeholder="Enter Adjective"
+        />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input
+          type="text"
+          class="input join-item"
+          placeholder="Enter Adjective"
+        />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset
+      class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+    >
+      <legend class="fieldset-legend">Nouns</legend>
+      <div class="join">
+        <input type="text" class="input join-item" placeholder="Enter Noun" />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input type="text" class="input join-item" placeholder="Enter Noun" />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input type="text" class="input join-item" placeholder="Enter Noun" />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input type="text" class="input join-item" placeholder="Enter Noun" />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+      <div class="join">
+        <input type="text" class="input join-item" placeholder="Enter Noun" />
+        <div class="tooltip" data-tip="Randomize">
+          <button class="btn btn-neutral join-item">🔀</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
 </BaseLayout>
