@@ -200,11 +200,15 @@ const wordPools = {
     "hit",
   ],
 };
-
 // 2. Helper function to extract type and pick a random word
 function getRandomWord(idString) {
+  // Strips numbers (e.g., "adjective1" becomes "adjective")
   const prefixType = idString.replace(/[0-9]/g, "");
+
+  // Find the correct pool or fall back safely
   const currentPool = wordPools[prefixType] || ["Something"];
+
+  // Pick a random index
   const randomIndex = Math.floor(Math.random() * currentPool.length);
   return currentPool[randomIndex];
 }
@@ -213,42 +217,62 @@ function getRandomWord(idString) {
 // 3. Named Event Handler Functions
 // ==========================================
 
-// Click handler for individual rows
-function handleIndividualRandomize() {
-  // 'this' refers to the clicked button
+// Click handler for individual row buttons (🔀)
+function handleIndividualRandomize(event) {
+  event.preventDefault();
+
   const container = this.closest(".join");
-  const targetId = container.querySelector("label").getAttribute("for");
+  if (!container) return;
+
+  const label = container.querySelector("label");
+  if (!label) return;
+
+  const targetId = label.getAttribute("for");
   const targetInput = document.getElementById(targetId);
 
-  targetInput.value = getRandomWord(targetId);
+  if (targetInput) {
+    targetInput.value = getRandomWord(targetId);
+  }
 }
 
-// Helper function to cycle through each input inside the "All" loop
+// Callback function to cycle through each input inside the "All" loop
 function randomizeSingleInput(input) {
-  const targetId = input.id;
-  if (targetId) {
-    input.value = getRandomWord(targetId);
+  if (input && input.id) {
+    input.value = getRandomWord(input.id);
   }
 }
 
 // Click handler for the global "Randomize All" button
-function handleRandomizeAll() {
-  const allInputs = document.querySelectorAll(".join .input");
+function handleRandomizeAll(event) {
+  event.preventDefault();
+
+  const allInputs = document.querySelectorAll(".join input");
+
+  if (allInputs.length === 0) {
+    console.warn("Randomize All: No inputs found with selector '.join input'");
+    return;
+  }
+
   allInputs.forEach(randomizeSingleInput);
 }
 
 // ==========================================
 // 4. Hooking up the Event Listeners
 // ==========================================
+document.addEventListener("DOMContentLoaded", function () {
+  // Bind all individual row buttons inside your tooltips
+  const individualButtons = document.querySelectorAll(".tooltip .btn");
+  individualButtons.forEach(function (button) {
+    button.addEventListener("click", handleIndividualRandomize);
+  });
 
-// Individual button listeners
-const individualButtons = document.querySelectorAll(".tooltip .btn");
-individualButtons.forEach(function (button) {
-  button.addEventListener("click", handleIndividualRandomize);
+  // Bind the global "Randomize All" button
+  const randomAllBtn = document.getElementById("random-all");
+  if (randomAllBtn) {
+    randomAllBtn.addEventListener("click", handleRandomizeAll);
+  } else {
+    console.warn(
+      "Randomize All: Element with ID 'randomAllBtn' was not found on the page.",
+    );
+  }
 });
-
-// Global button listener
-const randomAllBtn = document.getElementById("randomAllBtn");
-if (randomAllBtn) {
-  randomAllBtn.addEventListener("click", handleRandomizeAll);
-}
