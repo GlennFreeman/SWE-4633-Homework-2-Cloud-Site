@@ -200,17 +200,31 @@ const wordPools = {
     "hit",
   ],
 };
-// 2. Helper function to extract type and pick a random word
+
+// ==========================================
+// 2. Pure Helper Functions
+// ==========================================
+
+// Extracts the prefix type and picks a random word
 function getRandomWord(idString) {
-  // Strips numbers (e.g., "adjective1" becomes "adjective")
   const prefixType = idString.replace(/[0-9]/g, "");
-
-  // Find the correct pool or fall back safely
   const currentPool = wordPools[prefixType] || ["Something"];
-
-  // Pick a random index
   const randomIndex = Math.floor(Math.random() * currentPool.length);
   return currentPool[randomIndex];
+}
+
+// Iterates over an input to randomize it
+function randomizeSingleInput(input) {
+  if (input && input.id) {
+    input.value = getRandomWord(input.id);
+  }
+}
+
+// Iterates over an input to empty its text value
+function clearSingleInput(input) {
+  if (input) {
+    input.value = "";
+  }
 }
 
 // ==========================================
@@ -235,19 +249,11 @@ function handleIndividualRandomize(event) {
   }
 }
 
-// Callback function to cycle through each input inside the "All" loop
-function randomizeSingleInput(input) {
-  if (input && input.id) {
-    input.value = getRandomWord(input.id);
-  }
-}
-
 // Click handler for the global "Randomize All" button
 function handleRandomizeAll(event) {
   event.preventDefault();
 
   const allInputs = document.querySelectorAll(".join input");
-
   if (allInputs.length === 0) {
     console.warn("Randomize All: No inputs found with selector '.join input'");
     return;
@@ -256,8 +262,21 @@ function handleRandomizeAll(event) {
   allInputs.forEach(randomizeSingleInput);
 }
 
+// Click handler for the global "Clear All" button
+function handleClearAll(event) {
+  event.preventDefault();
+
+  const allInputs = document.querySelectorAll(".join input");
+  if (allInputs.length === 0) {
+    console.warn("Clear All: No inputs found with selector '.join input'");
+    return;
+  }
+
+  allInputs.forEach(clearSingleInput);
+}
+
 // ==========================================
-// 4. Hooking up the Event Listeners
+// 4. Dom Ready Execution & Event Binding
 // ==========================================
 document.addEventListener("DOMContentLoaded", function () {
   // Bind all individual row buttons inside your tooltips
@@ -272,7 +291,17 @@ document.addEventListener("DOMContentLoaded", function () {
     randomAllBtn.addEventListener("click", handleRandomizeAll);
   } else {
     console.warn(
-      "Randomize All: Element with ID 'randomAllBtn' was not found on the page.",
+      "Randomize All: Element with ID 'random-all' was not found on the page.",
+    );
+  }
+
+  // Bind the global "Clear All" button
+  const clearAllBtn = document.getElementById("clear-all");
+  if (clearAllBtn) {
+    clearAllBtn.addEventListener("click", handleClearAll);
+  } else {
+    console.warn(
+      "Clear All: Element with ID 'clear-all' was not found on the page.",
     );
   }
 });
