@@ -14,6 +14,8 @@ import Github from "../images/GitHub_Lockup_White_Clearspace.png";
       src={DecayedBars}
       alt="logo"
       class="max-h-8 w-auto rounded-xl"
+      loading="eager"
+      fetchpriority="high"
     />
     <p>
       Copyright &copy; {new Date().getFullYear()} - All right reserved Glenn Freeman
@@ -25,14 +27,26 @@ import Github from "../images/GitHub_Lockup_White_Clearspace.png";
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Image src={Linkedin} alt="Linkedin logo" class="max-h-6 w-auto" />
+      <Image
+        src={Linkedin}
+        alt="Linkedin logo"
+        class="max-h-6 w-auto"
+        loading="eager"
+        fetchpriority="high"
+      />
     </a>
     <a
       href="https://github.com/GlennFreeman"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Image src={Github} alt="Github logo" class="max-h-6 w-auto" />
+      <Image
+        src={Github}
+        alt="Github logo"
+        class="max-h-6 w-auto"
+        loading="eager"
+        fetchpriority="high"
+      />
     </a>
   </nav>
 </footer>
