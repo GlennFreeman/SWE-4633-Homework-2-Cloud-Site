@@ -10,7 +10,6 @@ import BaseLayout from "../layouts/base_layout.astro";
   <form
     class="flex justify-center flex-col m-auto py-4 border-2 border-accent rounded-4xl"
   >
-    <button class="btn btn-primary m-auto">Randomize All 🔀</button>
     <div class="flex flex-wrap gap-4 justify-center mb-4">
       <fieldset
         class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
@@ -276,7 +275,11 @@ import BaseLayout from "../layouts/base_layout.astro";
         </div>
       </fieldset>
     </div>
-    <button class="btn btn-accent m-auto">Submit</button>
+    <div class="flex gap-8 justify-center">
+      <button class="btn btn-primary w-[20ch]">Randomize All 🔀</button>
+      <button class="btn btn-accent w-[20ch]">Submit 📥</button>
+      <button class="btn btn-error w-[20ch]">Clear All 🧹✨</button>
+    </div>
   </form>
 </BaseLayout>
 <style>

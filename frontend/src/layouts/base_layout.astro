@@ -17,10 +17,12 @@ import "../styles/global.css";
     <title>Glenn Freeman</title>
   </head>
   <body>
-    <Nav />
-    <main class="w-11/12 mx-auto">
-      <slot />
-    </main>
-    <Footer />
+    <div class="flex flex-col min-h-dvh">
+      <Nav />
+      <main class="w-11/12 mx-auto mb-10 flex-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>
