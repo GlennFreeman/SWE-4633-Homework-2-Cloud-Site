@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../layouts/base_layout.astro";
+---
+
+<BaseLayout>
+  <h1 class="text-8xl font-black mb-8">The Story</h1>
+  <p>
+    It was a perfectly normal day when the <span id="noun1" class="mx-2"
+      >___</span
+    > suddenly became
+    <span id="adjective1" class="ml-2">___</span>.
+  </p>
+  <p>
+    Nobody knew what happened. The senior developer tried to <span
+      id="verb1"
+      class="mx-2">___</span
+    > the <span id="noun2" class="ml-2">___</span>, but it <span
+      id="adverb1"
+      class="mx-2">___</span
+    > produced an even bigger <span id="noun3" class="ml-2">___</span>.
+  </p>
+  <p>
+    The team gathered around the <span id="noun4" class="ml-2">___</span>,
+    staring at the <span id="adjective2" class="mx-2">___</span> error message.
+  </p>
+  <p>
+    <q class="mr-2">Just <span id="verb2" class="mx-2">___</span> it,</q> someone
+    suggested.
+  </p>
+  <p>
+    The developer <span id="adverb2" class="mx-2">___</span> restarted the <span
+      id="noun5"
+      class="ml-2">___</span
+    >.
+  </p>
+  <p><em class="mr-2">Nothing</em> happened.</p>
+  <p>Then <u class="mx-2">everything</u> happened.</p>
+  <p>
+    The system began to <span id="verb3" class="mx-2">___</span>
+    <span id="adjective3" class="mx-2">___</span>
+    <span id="noun6" class="mx-2">___</span> across every server.
+  </p>
+  <p>
+    The developer attempted to <span id="verb4" class="mx-2">___</span> the problem
+    <span id="adverb3" class="ml-2">___</span>, but the <span
+      id="noun7"
+      class="mx-2">___</span
+    > had already become <span id="adjective4" class="ml-2">___</span>.
+  </p>
+  <p>
+    At<strong class="ml-2">4:59 PM</strong>, the manager walked in and asked, <q
+      class="ml-2">Is everything working?</q
+    >
+  </p>
+  <p>Everyone looked at the developer.</p>
+  <p>The developer looked at the <span id="noun8" class="ml-2">___</span>.</p>
+  <p>Then they <span id="verb5" class="ml-2">___</span>.</p>
+  <p><q>Yes.</q></p>
+  <p>The developer committed the fix.</p>
+  <p>
+    The commit message was:<code>fix: hopefully</code> . . . ?
+  </p>
+</BaseLayout>
+<style>
+  body {
+    counter-reset: paragraph-counter;
+  }
+  h1 {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  h1::after {
+    content: "";
+    position: absolute;
+    left: 8ch;
+    right: 0;
+    top: 70%;
+    border-bottom: 1px solid var(--color-neutral-500);
+  }
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+  }
+  p::before {
+    counter-increment: paragraph-counter;
+    content: counter(paragraph-counter) " ";
+    font-size: 0.75rem;
+    align-self: center;
+    margin-right: 0.5rem;
+    color: var(--color-neutral-500);
+  }
+  q {
+    font-style: italic;
+    color: var(--color-violet-300);
+  }
+  code {
+    margin: 0.05rem 0.5rem;
+    padding: 0.25rem;
+    font-family: monospace;
+    text-box-trim: trim-both;
+    color: var(--color-warning);
+    background-color: var(--color-neutral);
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-primary);
+    box-shadow: 0 0 5px 1px var(--color-primary);
+  }
+</style>

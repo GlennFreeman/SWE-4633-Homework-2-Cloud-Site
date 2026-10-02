@@ -11,7 +11,6 @@ class Madlib(models.Model):
     adverb1 = models.CharField(max_length=25)
     adverb2 = models.CharField(max_length=25)
     adverb3 = models.CharField(max_length=25)
-    adverb4 = models.CharField(max_length=25)
 
     noun1 = models.CharField(max_length=25)
     noun2 = models.CharField(max_length=25)
@@ -20,6 +19,7 @@ class Madlib(models.Model):
     noun5 = models.CharField(max_length=25)
     noun6 = models.CharField(max_length=25)
     noun7 = models.CharField(max_length=25)
+    noun8 = models.CharField(max_length=25)
 
     verb1 = models.CharField(max_length=25)
     verb2 = models.CharField(max_length=25)
