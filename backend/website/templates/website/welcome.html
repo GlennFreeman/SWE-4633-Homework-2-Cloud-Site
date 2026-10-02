@@ -1,16 +1,27 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'favicon-96x96.png' %}"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'apple-touch-icon.png' %}"
+    />
+    <link rel="manifest" href="{% static 'site.webmanifest' %}" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content="Astro v7.3.5" />
     <title>Glenn Freeman</title>
-    <link rel="stylesheet" href="/_astro/index.tR7UfloM.css" />
+    <link rel="stylesheet" href="{% static '_astro/index.tR7UfloM.css' %}" />
   </head>
   <body>
     <div class="flex flex-col min-h-dvh">
@@ -20,9 +31,9 @@
           data-astro-cid-jbsoqdrt
         >
           <div class="aura aura-silver mr-4" data-astro-cid-jbsoqdrt>
-            <a href="index.html" data-astro-cid-jbsoqdrt
+            <a href="#" data-astro-cid-jbsoqdrt
               ><img
-                src="/_astro/dapper_nib.CFBMWI7g_Zrgxyv.webp"
+                src="{% static '_astro/dapper_nib.CFBMWI7g_Zrgxyv.webp' %}"
                 id="nav-logo"
                 alt="Logo"
                 loading="eager"
@@ -36,7 +47,7 @@
           </div>
           <div class="ps-4" data-astro-cid-jbsoqdrt>
             <a
-              href="index.html"
+              href="#"
               class="text-lg font-bold btn btn-ghost"
               data-astro-cid-jbsoqdrt
               >Glenn Freeman</a
@@ -692,7 +703,7 @@
       >
         <aside class="grid-flow-col items-center" data-astro-cid-ddhozxeg>
           <img
-            src="/_astro/decayed_bars.BT76Ef_o_Z1FO5Ge.webp"
+            src="{% static '_astro/decayed_bars.BT76Ef_o_Z1FO5Ge.webp' %}"
             id="footer-logo"
             alt="logo"
             loading="eager"
@@ -717,7 +728,7 @@
             rel="noopener noreferrer"
             data-astro-cid-ddhozxeg
             ><img
-              src="/_astro/LI-Logo.1chvtZId_Z2aU5OG.webp"
+              src="{% static '_astro/LI-Logo.1chvtZId_Z2aU5OG.webp' %}"
               alt="Linkedin logo"
               loading="eager"
               fetchpriority="high"
@@ -732,7 +743,7 @@
             rel="noopener noreferrer"
             data-astro-cid-ddhozxeg
             ><img
-              src="/_astro/GitHub_Lockup_White_Clearspace.QEENmAaj_1JE0rg.webp"
+              src="{% static '_astro/GitHub_Lockup_White_Clearspace.QEENmAaj_1JE0rg.webp' %}"
               alt="Github logo"
               loading="eager"
               fetchpriority="high"
