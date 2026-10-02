@@ -197,6 +197,8 @@ cython_debug/
 # Translations
 
 # Django stuff:
+static
+staticfiles
 
 # Flask stuff:
 
