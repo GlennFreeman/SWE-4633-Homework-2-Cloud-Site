@@ -1,6 +1,15 @@
+import os
+
 from flask import Flask, render_template, request
 
-app = Flask(__name__, static_url_path="")
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(
+    __name__,
+    static_url_path="",
+    static_folder=os.path.join(base_dir, "static"),
+    template_folder=os.path.join(base_dir, "templates"),
+)
 
 
 @app.route("/")
