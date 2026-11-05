@@ -15,7 +15,6 @@ cur.execute("""
         created_at TEXT DEFAULT CURRENT_TIMESTAMP,
         last_login_at TEXT DEFAULT CURRENT_TIMESTAMP,
 
-        -- Prevents duplicate accounts for the same provider ID
         UNIQUE(issuer, sub)
     )
 """)
