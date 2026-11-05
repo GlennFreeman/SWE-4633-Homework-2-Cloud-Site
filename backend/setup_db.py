@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Connection, Cursor
 
-con: Connection = sqlite3.connect("tutorial.db")
+con: Connection = sqlite3.connect("dev.db")
 cur: Cursor = con.cursor()
 
 cur.execute("""
