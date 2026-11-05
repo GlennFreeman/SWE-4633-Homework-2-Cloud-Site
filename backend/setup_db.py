@@ -19,6 +19,28 @@ cur.execute("""
         UNIQUE(issuer, sub)
     )
 """)
-
 con.commit()
+
+# Mock payload received from an OIDC ID Token
+oidc_profile = {
+    "issuer": "https://google.com",
+    "sub": "google-user-123456",
+    "email": "user@example.com",
+    "name": "Alex Doe",
+    "picture": "https://example.com",
+}
+
+# The UPSERT SQL Statement
+upsert_query = """
+    INSERT INTO users (issuer, sub, email, name, picture)
+    VALUES (:issuer, :sub, :email, :name, :picture)
+    ON CONFLICT(issuer, sub) DO UPDATE SET
+        name = excluded.name,
+        picture = excluded.picture,
+        last_login_at = CURRENT_TIMESTAMP
+"""
+
+cur.execute(upsert_query, oidc_profile)
+con.commit()
+
 con.close()
