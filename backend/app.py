@@ -14,7 +14,7 @@ app = Flask(
 
 @app.route("/")
 def index():
-    return app.send_static_file("index.html")
+    return render_template("index.html.j2", name="Glenn Freeman")
 
 
 @app.route("/madlib", methods=["GET"])
@@ -44,7 +44,7 @@ def madlib():
     verb5 = request.args.get("verb5")
 
     return render_template(
-        "madlib.html",
+        "madlib.html.j2",
         adjective1=adjective1,
         adjective2=adjective2,
         adjective3=adjective3,
