@@ -24,8 +24,8 @@ try:
         IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
         CREATE TABLE Users (
             id INT IDENTITY(1,1) PRIMARY KEY,
-            name VARCHAR(50),
-            email VARCHAR(50)
+            name VARCHAR(50) UNIQUE,
+            email VARCHAR(50) UNIQUE
         )
     """)
     print("Table verified/created.")
