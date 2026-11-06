@@ -52,3 +52,9 @@ try:
 
 except DatabaseError as e:
     print(e)
+
+finally:
+    # Clean up connections
+    cur.close()
+    con.close()
+    print("\nConnection closed safely.")
