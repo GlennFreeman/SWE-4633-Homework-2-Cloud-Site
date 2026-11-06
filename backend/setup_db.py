@@ -1,45 +1,54 @@
-import sqlite3
-from sqlite3 import Connection, Cursor
+import os
 
-con: Connection = sqlite3.connect("dev.db")
-cur: Cursor = con.cursor()
+import mssql_python as mssql
+from dotenv import load_dotenv
+from mssql_python import Connection, Cursor, DatabaseError
 
-cur.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        issuer TEXT NOT NULL,
-        sub TEXT NOT NULL,
-        email TEXT UNIQUE NOT NULL,
-        name TEXT,
-        picture TEXT,
-        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
-        last_login_at TEXT DEFAULT CURRENT_TIMESTAMP,
+load_dotenv()
 
-        UNIQUE(issuer, sub)
+connection_string = (
+    f"Server={os.environ['DB_SERVER']};"
+    f"Database={os.environ['DB_NAME']};"
+    f"UID={os.environ['DB_ADMIN']};"
+    f"PWD={os.environ['DB_ADMIN_PW']};"
+    "Encrypt=yes;TrustServerCertificate=no;"
+)
+
+try:
+    print("Connecting to Azure SQL Database...")
+
+    con: Connection = mssql.connect(connection_string)
+    cur: Cursor = con.cursor()
+
+    cur.execute("""
+        IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Users' AND xtype='U')
+        CREATE TABLE Users (
+            id INT IDENTITY(1,1) PRIMARY KEY,
+            name VARCHAR(50),
+            email VARCHAR(50)
+        )
+    """)
+    print("Table verified/created.")
+
+    # 2. Insert dummy data
+    cur.execute(
+        "INSERT INTO Users (name, email) VALUES (?, ?)", ("Alice", "alice@example.com")
     )
-""")
-con.commit()
+    con.commit()  # Commit transaction to save changes
+    print("Data inserted successfully.")
 
-# Mock payload received from an OIDC ID Token
-oidc_profile = {
-    "issuer": "https://google.com",
-    "sub": "google-user-123456",
-    "email": "user@example.com",
-    "name": "Alex Doe",
-    "picture": "https://example.com",
-}
+    # 3. Query the data
+    cur.execute("SELECT id, name, email FROM Users")
+    rows = cur.fetchall()
 
-# The UPSERT SQL Statement
-upsert_query = """
-    INSERT INTO users (issuer, sub, email, name, picture)
-    VALUES (:issuer, :sub, :email, :name, :picture)
-    ON CONFLICT(issuer, sub) DO UPDATE SET
-        name = excluded.name,
-        picture = excluded.picture,
-        last_login_at = CURRENT_TIMESTAMP
-"""
+    print("\n--- Database Records ---")
+    for row in rows:
+        print(f"ID: {row[0]} | Name: {row[1]} | Email: {row[2]}")
 
-cur.execute(upsert_query, oidc_profile)
-con.commit()
+    # Clean up connections
+    cur.close()
+    con.close()
+    print("\nConnection closed safely.")
 
-con.close()
+except DatabaseError as e:
+    print(e)
