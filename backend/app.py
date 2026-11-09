@@ -101,7 +101,3 @@ def history():
     return render_template(
         "history.html.j2", user=session.get("user"), madlibs=db.list_madlibs(user_id)
     )
-
-
-if __name__ == "__main__":
-    app.run(host="localhost", port=5000, debug=True)
