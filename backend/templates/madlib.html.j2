@@ -77,6 +77,17 @@
                                 height="1513" class="max-h-10 max-w-10 rounded-4xl"></a></div>
                     <div class="flex-1" data-astro-cid-jbsoqdrt><a href="{{ url_for('history') }}"
                             class="btn btn-ghost text-lg font-bold" data-astro-cid-jbsoqdrt>{{ user.name }}</a></div>
+                    {% if user %}
+                    <div class="aura aura-silver mr-4" data-astro-cid-jbsoqdrt><a href="{{ url_for('history') }}" data-astro-cid-jbsoqdrt><img
+                                src="{{ user.picture }}" id="nav-logo" alt="Logo" loading="eager"
+                                fetchpriority="high" data-astro-cid-jbsoqdrt="true" decoding="async" width="1513"
+                                height="1513" class="max-h-10 max-w-10 rounded-4xl"></a></div>
+                    <div class="flex-1" data-astro-cid-jbsoqdrt><a href="{{ url_for('history') }}"
+                            class="btn btn-ghost text-lg font-bold" data-astro-cid-jbsoqdrt>{{ user.name }}</a></div>
+                            <div data-astro-cid-jbsoqdrt><a href="/" class="btn btn-ghost text-lg font-bold"
+                            data-astro-cid-jbsoqdrt>Start&nbsp;Madlib</a></div>
+                            <div data-astro-cid-jbsoqdrt><a href="{{ url_for('logout') }}" class="btn btn-ghost text-lg font-bold"
+                            data-astro-cid-jbsoqdrt>Logout</a></div>
                     {% else %}
                     <div class="aura aura-silver mr-4" data-astro-cid-jbsoqdrt><a href="/" data-astro-cid-jbsoqdrt><img
                                 src="/_astro/dapper_nib.CFBMWI7g_Zrgxyv.webp" id="nav-logo" alt="Logo" loading="eager"
@@ -84,9 +95,9 @@
                                 height="1513" class="max-h-10 max-w-10 rounded-4xl"></a></div>
                     <div class="flex-1" data-astro-cid-jbsoqdrt><a href="{{ url_for('login') }}"
                             class="btn btn-ghost text-lg font-bold" data-astro-cid-jbsoqdrt>Login with Google</a></div>
-                    {% endif %}
-                    <div data-astro-cid-jbsoqdrt><a href="/" class="btn btn-ghost text-lg font-bold"
+                            <div data-astro-cid-jbsoqdrt><a href="/" class="btn btn-ghost text-lg font-bold"
                             data-astro-cid-jbsoqdrt>Start&nbsp;Madlib</a></div>
+                    {% endif %}
                 </nav>
             </header>
             <main class="w-11/12 mx-auto mb-10 flex-1">
