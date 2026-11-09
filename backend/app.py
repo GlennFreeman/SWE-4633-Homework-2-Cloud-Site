@@ -1,6 +1,7 @@
 import os
 
-from flask import Flask, render_template, request
+from authlib.integrations.flask_client import OAuth
+from flask import Flask, render_template, request, session, url_for
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -11,10 +12,29 @@ app = Flask(
     template_folder=os.path.join(base_dir, "templates"),
 )
 
+app.secret_key = os.urandom(24)
+
+oauth = OAuth(app)
+google = oauth.register(
+    name="google",
+    client_id=os.environ["GOOGLE_CLIENT_ID"],
+    client_secret=os.environ["GOOGLE_CLIENT_SECRET"],
+    server_metadata_url="https://google.com",
+    client_kwargs={"scope": "openid email profile"},
+)
+
 
 @app.route("/")
 def index():
-    return render_template("index.html.j2", name="Glenn Freeman")
+    user = session.get("user")
+    return render_template("index.html.j2", user=user)
+
+
+@app.route("/login")
+def login():
+    # Redirects to Google's OAuth consent screen
+    redirect_uri = url_for("auth_callback", _external=True)
+    return google.authorize_redirect(redirect_uri)
 
 
 @app.route("/madlib", methods=["GET"])
