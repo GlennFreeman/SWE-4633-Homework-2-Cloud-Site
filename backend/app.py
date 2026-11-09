@@ -79,7 +79,7 @@ def madlib():
         # Redirect so refreshing the page doesn't save a duplicate.
         return redirect(url_for("saved_madlib", madlib_id=new_id))
 
-    return render_template("madlib.html.j2", **words)
+    return render_template("madlib.html.j2", user=session.get("user"), **words)
 
 
 @app.route("/madlib/<int:madlib_id>")
@@ -90,7 +90,7 @@ def saved_madlib(madlib_id):
     words = db.get_madlib(user_id, madlib_id)
     if words is None:
         abort(404)
-    return render_template("madlib.html.j2", **words)
+    return render_template("madlib.html.j2", user=session.get("user"), **words)
 
 
 @app.route("/history")

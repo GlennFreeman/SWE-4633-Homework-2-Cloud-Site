@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/svg+xml" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="manifest" href="site.webmanifest">
+        <meta name="viewport" content="width=device-width">
+        <title>My Madlibs | Glenn Freeman</title>
+        <style>
+            body {
+                counter-reset: entry-counter
+            }
+
+            /* Same heading treatment as "The Story": rule extends to the right */
+            .history-title {
+                width: 100%;
+                display: inline-block;
+                position: relative
+            }
+
+            .history-title:after {
+                content: "";
+                border-bottom: 1px solid var(--color-neutral-500);
+                position: absolute;
+                top: 70%;
+                left: 9ch;
+                right: 0
+            }
+
+            .history-subtitle {
+                color: var(--color-neutral-500);
+                font-size: 1.25rem;
+                margin-bottom: 2rem
+            }
+
+            .history-list {
+                list-style: none;
+                padding: 0;
+                margin: 0
+            }
+
+            /* Numbered like the story paragraphs */
+            .history-entry {
+                display: flex;
+                gap: .75rem;
+                padding: 1.25rem 0;
+                border-bottom: 1px solid var(--color-neutral-500)
+            }
+
+            .history-entry:last-child {
+                border-bottom: none
+            }
+
+            .history-entry:before {
+                counter-increment: entry-counter;
+                content: counter(entry-counter);
+                color: var(--color-neutral-500);
+                font-size: .75rem;
+                padding-top: .45rem;
+                min-width: 1.5rem;
+                text-align: right
+            }
+
+            .history-body {
+                flex: 1;
+                min-width: 0
+            }
+
+            .history-date {
+                color: var(--color-neutral-500);
+                font-size: .85rem;
+                margin-bottom: .35rem
+            }
+
+            .history-teaser {
+                font-size: 1.25rem;
+                margin-bottom: .75rem
+            }
+
+            .history-teaser q {
+                color: var(--color-violet-300);
+                font-style: italic
+            }
+
+            .history-word {
+                font-weight: 700
+            }
+
+            /* Word chips use the same glow as the commit-message <code> */
+            .history-chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: .4rem;
+                margin-bottom: .75rem
+            }
+
+            .history-chip {
+                color: var(--color-warning);
+                background-color: var(--color-neutral);
+                border: 1px solid var(--color-primary);
+                box-shadow: 0 0 5px 1px var(--color-primary);
+                border-radius: .25rem;
+                padding: .15rem .45rem;
+                font-family: monospace;
+                font-size: .85rem
+            }
+
+            .history-chip-label {
+                color: var(--color-neutral-500);
+                margin-right: .35rem
+            }
+
+            .history-empty {
+                font-size: 1.25rem
+            }
+
+            .history-empty code {
+                color: var(--color-warning);
+                background-color: var(--color-neutral);
+                border: 1px solid var(--color-primary);
+                box-shadow: 0 0 5px 1px var(--color-primary);
+                border-radius: .25rem;
+                margin: .05rem .5rem;
+                padding: .25rem;
+                font-family: monospace
+            }
+        </style>
+        <link rel="stylesheet" href="/_astro/base_layout.DxRskldn.css">
+    </head>
+
+    <body>
+        <div class="flex flex-col min-h-dvh">
+            <header class="mb-4" data-astro-cid-jbsoqdrt>
+                <nav class="navbar bg-radial from-accent to-accent-content shadow-2xl" data-astro-cid-jbsoqdrt>
+                    <div class="aura aura-silver mr-4" data-astro-cid-jbsoqdrt><a href="/" data-astro-cid-jbsoqdrt><img
+                                src="{{ user.picture }}" id="nav-logo" alt="Logo" loading="eager"
+                                fetchpriority="high" data-astro-cid-jbsoqdrt="true" decoding="async" width="1513"
+                                height="1513" class="max-h-10 max-w-10 rounded-4xl"
+                                referrerpolicy="no-referrer"></a></div>
+                    <div class="flex-1" data-astro-cid-jbsoqdrt><a href="{{ url_for('history') }}"
+                            class="btn btn-ghost text-lg font-bold" data-astro-cid-jbsoqdrt>{{ user.name }}</a></div>
+                    <div data-astro-cid-jbsoqdrt><a href="/" class="btn btn-ghost text-lg font-bold"
+                            data-astro-cid-jbsoqdrt>Start&nbsp;Madlib</a></div>
+                    <div data-astro-cid-jbsoqdrt><a href="{{ url_for('logout') }}" class="btn btn-ghost text-lg font-bold"
+                            data-astro-cid-jbsoqdrt>Logout</a></div>
+                </nav>
+            </header>
+            <main class="w-11/12 mx-auto mb-10 flex-1">
+                <h1 class="text-8xl font-black mb-8 history-title">History</h1>
+
+                {% if madlibs %}
+                <p class="history-subtitle">
+                    {{ madlibs | length }} {{ 'story' if madlibs | length == 1 else 'stories' }}, newest first
+                </p>
+                <ol class="history-list">
+                    {% for m in madlibs %}
+                    {% set w = m.words %}
+                    <li class="history-entry">
+                        <div class="history-body">
+                            <div class="history-date">{{ m.created_at.strftime('%b %d, %Y · %I:%M %p') }} UTC</div>
+                            <p class="history-teaser">
+                                It was a perfectly normal day when the
+                                <span class="history-word">{{ w.noun1 }}</span>
+                                suddenly became <span class="history-word">{{ w.adjective1 }}</span>&hellip;
+                                then they <q>{{ w.verb5 }}</q>.
+                            </p>
+                            <div class="history-chips">
+                                {% for field, word in w.items() %}
+                                <span class="history-chip"><span class="history-chip-label">{{ field }}</span>{{ word }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="{{ url_for('saved_madlib', madlib_id=m.id) }}"
+                                class="btn btn-ghost text-lg font-bold">Read&nbsp;the&nbsp;story&nbsp;&rarr;</a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ol>
+                {% else %}
+                <p class="history-empty">
+                    No stories yet. The commit history is empty:<code>git log</code> . . . nothing.
+                </p>
+                <a href="/" class="btn btn-ghost text-lg font-bold" style="margin-top: 1rem">Start&nbsp;Madlib</a>
+                {% endif %}
+            </main>
+            <footer class="footer sm:footer-horizontal bg-neutral text-neutral-content items-center p-4"
+                data-astro-cid-ddhozxeg>
+                <aside class="grid-flow-col items-center" data-astro-cid-ddhozxeg><img
+                        src="/_astro/decayed_bars.BT76Ef_o_Z1FO5Ge.webp" id="footer-logo" alt="logo" loading="eager"
+                        fetchpriority="high" data-astro-cid-ddhozxeg="true" decoding="async" width="128" height="128"
+                        class="max-h-8 w-auto rounded-xl">
+                    <p data-astro-cid-ddhozxeg>Copyright &copy; 2026 - All right reserved Glenn Freeman</p>
+                </aside>
+                <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end" data-astro-cid-ddhozxeg><a
+                        href="https://www.linkedin.com/in/glennjlfreeman/" target="_blank" rel="noopener noreferrer"
+                        data-astro-cid-ddhozxeg><img src="/_astro/LI-Logo.1chvtZId_Z2aU5OG.webp" alt="Linkedin logo"
+                            loading="eager" fetchpriority="high" data-astro-cid-ddhozxeg="true" decoding="async"
+                            width="2212" height="540" class="max-h-6 w-auto"></a><a
+                        href="https://github.com/GlennFreeman" target="_blank" rel="noopener noreferrer"
+                        data-astro-cid-ddhozxeg><img src="/_astro/GitHub_Lockup_White_Clearspace.QEENmAaj_1JE0rg.webp"
+                            alt="Github logo" loading="eager" fetchpriority="high" data-astro-cid-ddhozxeg="true"
+                            decoding="async" width="1344" height="381" class="max-h-6 w-auto"></a></nav>
+            </footer>
+        </div>
+    </body>
+
+</html>
