@@ -17,7 +17,7 @@ app = Flask(
     template_folder=os.path.join(base_dir, "templates"),
 )
 
-app.secret_key = os.environ["FLASK_SECRET_KEY"]
+app.secret_key = os.urandom(24)
 
 oauth = OAuth(app)
 google = oauth.register(
