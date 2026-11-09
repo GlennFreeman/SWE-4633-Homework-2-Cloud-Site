@@ -1,7 +1,10 @@
 import os
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, render_template, request, session, url_for
+from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request, session, url_for
+
+load_dotenv()
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -19,7 +22,7 @@ google = oauth.register(
     name="google",
     client_id=os.environ["GOOGLE_CLIENT_ID"],
     client_secret=os.environ["GOOGLE_CLIENT_SECRET"],
-    server_metadata_url="https://google.com",
+    server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
     client_kwargs={"scope": "openid email profile"},
 )
 
@@ -32,9 +35,23 @@ def index():
 
 @app.route("/login")
 def login():
-    # Redirects to Google's OAuth consent screen
     redirect_uri = url_for("auth_callback", _external=True)
     return google.authorize_redirect(redirect_uri)
+
+
+@app.route("/auth/callback")
+def auth_callback():
+    token = google.authorize_access_token()
+    user_info = token.get("userinfo")
+    if user_info:
+        session["user"] = user_info
+    return redirect("/")
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect("/")
 
 
 @app.route("/madlib", methods=["GET"])
@@ -86,3 +103,8 @@ def madlib():
         verb4=verb4,
         verb5=verb5,
     )
+
+
+if __name__ == "__main__":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    app.run(host="localhost", port=5000, debug=True)
